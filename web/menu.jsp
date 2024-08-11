@@ -23,9 +23,6 @@
           <a class="nav-link" href="${pageContext.request.contextPath}/EditoraListar">Editora</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="${pageContext.request.contextPath}/GeneroListar">Genero</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="${pageContext.request.contextPath}/LivroListar">Livro</a>
       </ul>
     </div>

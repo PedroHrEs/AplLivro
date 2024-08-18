@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package br.com.livro.controller.editora;
+package br.com.livro.controller.livro;
 
+import br.com.livro.dao.AutorDAO;
 import br.com.livro.dao.EditoraDAO;
-import br.com.livro.dao.GenericDAO;
+import br.com.livro.dao.LivroDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -14,13 +15,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
  *
  * @author pedro
  */
-@WebServlet(name = "EditoraListar", urlPatterns = {"/EditoraListar"})
-public class EditoraListar extends HttpServlet {
+@WebServlet(name = "LivroCarregar", urlPatterns = {"/LivroCarregar"})
+public class LivroCarregar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,13 +33,18 @@ public class EditoraListar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=iso-8859-1");
+        response.setContentType("text/html;charset=UTF-8");
+        int idLivro = Integer.parseInt(request.getParameter("idLivro"));
         try {
-            GenericDAO dao = new EditoraDAO();
-            request.setAttribute("editoras", dao.listar());
-            request.getRequestDispatcher("/cadastros/editora/editora.jsp").forward(request, response);
+            LivroDAO oLivroDAO = new LivroDAO();
+            request.setAttribute("livro", oLivroDAO.carregar(idLivro));
+            AutorDAO oAutorDAO = new AutorDAO();
+            request.setAttribute("autores", oAutorDAO.listar());
+            EditoraDAO oEditoraDAO = new EditoraDAO();
+            request.setAttribute("editoras", oEditoraDAO.listar());
+            request.getRequestDispatcher("/cadastros/livro/livroCadastrar.jsp").forward(request, response);
         } catch (Exception ex) {
-            System.out.println("Problemas no Servlet ao listar Editoraes! Erro: " + ex.getMessage());
+            System.out.println("Problemas no Servlet ao carregar veiculo! Erro: " + ex.getMessage());
             ex.printStackTrace();
         }
     }

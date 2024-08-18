@@ -151,7 +151,7 @@ public class AutorDAO implements GenericDAO{
                 resultado.add(oAutor);
             }
             
-        }catch(SQLException ex){
+        }catch(SQLException ex){ 
             System.out.println("Problemas ao listar Autor! Erro: "
             +ex.getMessage());
         }
